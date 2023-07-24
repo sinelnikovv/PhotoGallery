@@ -4,7 +4,6 @@ import Loader from "./Loader";
 import PhotoItem from "./PhotoItem";
 import { useEffect, useState } from "react";
 import filter from "lodash.filter";
-import { useSelector } from "react-redux";
 
 const styles = StyleSheet.create({
   search: {
@@ -33,7 +32,7 @@ const Photos = () => {
 
   const handleSearch = (text) => {
     const filteredData = filter(fullData, (photo) => {
-      return contains(photo, text);
+      return contains(photo, text.toLowerCase());
     });
     setNewData(filteredData);
     setSearch(text);
