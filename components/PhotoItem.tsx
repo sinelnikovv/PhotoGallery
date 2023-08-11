@@ -3,8 +3,9 @@ import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { Dialog } from "@rneui/themed";
 import Loader from "./Loader";
-import { useDispatch, useSelector } from "react-redux";
 import { addToFavourite, deleteFromFavourite } from "./apiSlice";
+import { useAppDispatch, useAppSelector } from "./hooks";
+import { IItem } from "../store";
 
 const styles = StyleSheet.create({
   relative: {
@@ -47,17 +48,28 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
   },
+  loaderWrapper:{
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+  }
 });
 
-const PhotoItem = ({ item }) => {
+type TProps = {
+  item:IItem
+}
+
+const PhotoItem = ({ item } : TProps ) => {
   const [visibleDialog, setVisibleDialog] = useState(false);
   const toggleDialog = () => {
     setVisibleDialog(!visibleDialog);
   };
 
-  const favourites = useSelector((state) => state.favourite);
+  const favourites = useAppSelector((state) => state.favourite)
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,7 +78,7 @@ const PhotoItem = ({ item }) => {
   };
 
   const handleDeleteFromFavourites = () => {
-    dispatch(deleteFromFavourite(item));
+    dispatch(deleteFromFavourite(item.id));
   };
 
   return (
@@ -114,7 +126,7 @@ const PhotoItem = ({ item }) => {
             onLoadStart={() => setIsLoading(true)}
             onLoadEnd={() => setIsLoading(false)}
           />
-          {isLoading && <Loader />}
+          {isLoading && <View style={[styles.loaderWrapper, styles.img]}><Loader /></View>}
         </View>
       </Dialog>
     </>

@@ -1,4 +1,5 @@
 import { View, StyleSheet, ActivityIndicator } from "react-native";
+import React from "react";
 
 const styles = StyleSheet.create({
   loader: {
@@ -10,13 +11,12 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
     height: "100%",
-    transform: "-50%,-50%",
   },
 });
 
 const Loader = () => {
   return (
-    <View style={styles.loader}>
+    <View style={styles.loader} >
       <ActivityIndicator size="large" />
     </View>
   );

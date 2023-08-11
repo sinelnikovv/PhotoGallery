@@ -1,17 +1,21 @@
 import { View } from "react-native";
 import PhotoItem from "./PhotoItem";
 import { FlatList } from "react-native";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "./hooks";
+
+
 
 const Favourites = () => {
-  const favourites = useSelector((state) => state.favourite);
+
+  const favourites = useAppSelector((state) => state.favourite)
+
   return (
     <View>
       <FlatList
         data={favourites}
         numColumns={2}
         horizontal={false}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <PhotoItem item={item} />}
       />
     </View>
